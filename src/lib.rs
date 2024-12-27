@@ -9,7 +9,7 @@
 
 extern crate embedded_hal as hal;
 
-use hal::blocking::i2c::{Write, WriteRead};
+use hal::i2c::I2c;
 
 const I2C_ADDRESS: u8 = 0x0d;
 
@@ -104,7 +104,7 @@ pub struct QMC5883L<I2C> {
 
 impl<I2C, E> QMC5883L<I2C>
 where
-    I2C: WriteRead<Error = E> + Write<Error = E>,
+    I2C: I2c<Error = E>,
 {
     /// Creates a new QMC5883L device from an I2C peripheral; begins with a soft reset.
     pub fn new(i2c: I2C) -> Result<Self, Error<E>> {
